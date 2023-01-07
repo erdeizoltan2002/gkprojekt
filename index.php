@@ -1,14 +1,16 @@
 <?php
     session_start();
-    $db = new mysqli('localhost','root','','');
+    $db = new mysqli('localhost','root','','grosskidz');
     if(isset($_POST['nev']) && isset($_POST['jelszo'])){
-        $adatok = $db -> query("SELECT * from felhasznalok WHERE felhnev= '".$_POST['nev']."' AND jelszo= '".$_POST['jelszo']."'");
+        $adatok = $db -> query("SELECT * from bejelentkezes WHERE felhasznalo= '".$_POST['nev']."' AND jelszo= '".$_POST['jelszo']."'");
         if($adatok -> fetch_assoc()){
             $_SESSION['nev'] = $_POST['nev'];
+            echo"Üdv '".$_SESSION['nev']."'!";
         }else {
             echo"Sikertelen bejelentkezés";
         }
     }
+   
 ?>
 
 <!DOCTYPE html>
@@ -22,18 +24,31 @@
 <body>
     <?php
     //login
-        if(!isset($_SESSION['nev'])){
+        if(!isset($_POST['nev'])){
 
     ?>
-    <form method="post">
+    <form method="post" id="loginForm">
         <label for="nev">Név:</label><br>
         <input type="text" name="nev"><br>
         <label for="jelszo">Jelszó:</label><br>
         <input type="password" name="jelszo"><br>
         <button type="submit">Bejelentkezés</button>
     </form>
-    <?php
+    <br>
+    <a href="regiszt.php">Új felhasználó regisztrálása</a>
+        <?php
+        }if(isset($_SESSION['nev'])){
+        ?>
+        <form method="post">
+        <button type="submit" name="ki">Kijelentkezés</button>
+        </form>
+        <?php
         }
-    ?>
+        if(isset($_POST['ki'])){
+            session_destroy();
+            header("location:  /");
+        }
+        ?>
+
 </body>
 </html>
