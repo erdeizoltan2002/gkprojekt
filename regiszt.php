@@ -1,10 +1,10 @@
 <?php
 session_start();
     $db = new mysqli('localhost','root','','grosskidz');
-        if(isset($_POST['nev']) && isset($_POST['email']) && isset($_POST['jelszo']) && isset($_POST['jelszo2']) && isset($_POST['jelszo']) == isset($_POST['jelszo2']) && $_POST['nev'] != $_SESSION['regNev']){
+        if(isset($_POST['nev']) && isset($_POST['email']) && !isset($_SESSION['regNev']) && isset($_POST['jelszo']) && isset($_POST['jelszo2']) && isset($_POST['jelszo']) == isset($_POST['jelszo2']) && $_POST['nev'] != $_SESSION['regNev']){
             $db -> query("INSERT INTO `bejelentkezes`(`felhasznalo`, `email`, `jelszo`) VALUES ('".$_POST['nev']."','".$_POST['email']."','".$_POST['jelszo']."')");
             $_SESSION['regNev'] = $_POST['nev'];
-        }else{
+        }else if(isset($_SESSION['regNev']) == isset($_POST['nev'])){
             echo"Ez a felhasználó már regiszrált";
         }
 ?>
