@@ -2,10 +2,7 @@
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
-    import { createPopper } from '@popperjs/core';   
-    import bootstrap from 'bootstrap';       
-
-
+    // import { createPopper } from '@popperjs/core';   
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -17,13 +14,14 @@
     
     //kosár 
     onMounted(async ()=>{
-        kosar.value = JSON.parse(localStorage.getItem("kosar")) || {}   //a kosárba helyez termékek megmaradnak oldal elhagyása után is
+        kosar.value = JSON.parse(localStorage.getItem("kosar")) || []   //a kosárba helyez termékek megmaradnak oldal elhagyása után is
          await axios.get(`/termekek/${route.params.id}/${route.params.termek}`).then(function(response){
             console.log(response.data.termekek)
             loading.value = true
             termekek.value = (response.data.termekek)
         })
     })
+    
 
 
     watch(kosar, (newkosar) =>{
@@ -52,38 +50,30 @@
 <div>
     <!-- termék kiiratása -->
     <div v-if="loading == true">
+        <div class="row">
         <h1>{{ $route.params.id }}</h1>
-        <!-- {{ kosar }} -->
-        <div v-for="termek in termekek" :key="termekek.id">
-            <!-- {{ termek }} -->
-            <h2>{{ termek.megnevezes }}</h2>
-            <p>termékkép</p>
-            <p>Ára: {{ termek.osszeg }}</p>
-            <p>Méret: {{ termek.meret }}</p>
-            <button type="submit" @click="kosarbaHelyez(termek)">Termék kosárba helyezése</button>
+        {{ kosar }}
+            <div v-for="termek in termekek" :key="termekek.id">
+                <div class="card" style="width: 18rem;">
+                    <img src="/gorsskid.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h2>{{ termek.megnevezes }}</h2>
+                        <p>Ára: {{ termek.osszeg }}</p>
+                        <p>Méret: {{ termek.meret }}</p>
+                        </div>
+                    <button type="submit" class="btn btn-primary" @click="kosarbaHelyez(termek)">Termék kosárba helyezése</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div v-else>
-        Loading
-        {{ loading }}
-    </div>
-    <div>
-  <b-card
-    title="Card Title"
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
-    img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2"
-  >
-    <b-card-text>
-      Some quick example text to build on the card title and make up the bulk of the card's content.
-    </b-card-text>
-
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>
-</div>
+            <div v-else>
+                Loading
+                {{ loading }}
+            </div>
+        <!-- <div>
+    </div> -->
 </div>
 </template>
 
+    
+     

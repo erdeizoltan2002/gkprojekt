@@ -7,6 +7,7 @@
     const jelszo = ref('');
     const router = useRouter();
 
+
     const login = async()=>{
         await axios.post('/login',{
             nev: felhnev.value,
@@ -28,6 +29,7 @@
 </script>
 
 <template>
+<br>
     <form @submit.prevent="login">
         <input type="text" v-model="felhnev" placeholder="Felhasználó név:">
         <input type="password" v-model="jelszo" placeholder="Jelszó:">
@@ -36,4 +38,5 @@
     <RouterLink to="/register" class="r-link">
      Vagy regisztrálj...
     </RouterLink>
+
 </template>
