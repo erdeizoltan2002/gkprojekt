@@ -10,6 +10,7 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const pdfDocument = require('pdfkit');
 const fs = require('fs');
+const router = express.Router();
 
 
 const db = mySql.createPool({
@@ -32,9 +33,9 @@ const task = cron.schedule('1 * * * *', () => {
         }else{
             console.log("A lejárt elemek törölve lettek.")
         }
-        }) 
+        })
     } catch (error) {
-        console.log(err)
+        console.log(error)
     }
 });
 task.start();
@@ -152,11 +153,16 @@ app.get('/termekek/:termekek/:id',async(req,res) => {
 
     // regisztráció
 app.post('/register',async(req,res) =>{
-    const { felhasznalonev, emailcim, jelszo} = req.body
+    const { felhasznalonev, emailcim, jelszo,jelszo2} = req.body
 
     if(!felhasznalonev || !emailcim || !jelszo){
         return res.status(400).json({
             error : 'hiányzó adatok'
+        });
+    }
+    if(jelszo != jelszo2){
+        return res.status(400).json({
+            error : 'A két jelszó nem egyezik'
         });
     }
     try {
@@ -166,7 +172,7 @@ app.post('/register',async(req,res) =>{
                 error: 'foglalt'
             })
         }
-        
+
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(jelszo,salt)
 
@@ -180,7 +186,6 @@ app.post('/register',async(req,res) =>{
         });
     }
 })
-
     //emailkülés
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -198,7 +203,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
     const pfdId = Math.floor((1 + Math.random()) * 0x100000000)
     .toString(16)
     .substring(1);
-      
+
    //email-pdf rész
 
 
@@ -210,36 +215,36 @@ app.post('/vasarlas',auth,async(req,res) =>{
     attachments:[
     {   // file on disk as an attachment
         filename: 'szamla.pdf',
-        path: `./temp/pdf/${pfdId}.pdf` 
+        path: `./temp/pdf/${pfdId}.pdf`
     }]
     }
- 
+
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
+
+    // Apply a picture and modify it as well
+
+    // doc.image('termekkepek/gorsskid.jpg', {
+    //     fit: [90, 80],
+    //     align: 'right',
+    //     valign: 'top',
+    // });
+
     // Embed a font, set the font size, and render some text
     doc.fontSize(25)
-    .text('Some text with an embedded font!', 100, 100);
+    .text('GrossKidz számlája!', 100, 100);
 
-    // Apply a picture and modify it as well  
-    // doc.image('path/to/image.png', {
-    //     fit: [250, 300],
-    //     align: 'center',
-    //     valign: 'center'
-    //   });
-    // Add another page
-    doc
-    .addPage()
-    .fontSize(25)
-    .text('Here is some vector graphics...', 100, 100);
+    
+   
 
     // Draw a triangle if u want
-    doc.save()
-    .moveTo(100, 150)
-    .lineTo(100, 250)
-    .lineTo(200, 250)
-    .fill('#FF3300');
+    // doc.save()
+    // .moveTo(100, 150)
+    // .lineTo(100, 250)
+    // .lineTo(200, 250)
+    // .fill('#FF3300');
 
     // Apply some transforms and render an SVG path with the 'even-odd' fill rule
     doc.scale(0.6)
@@ -249,11 +254,11 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .restore();
 
     // Add some text with annotations
-    doc.addPage()
-    .fillColor('blue')
-    .text('Here is a link!', 100, 100)
-    .underline(100, 100, 160, 27, { color: '#0000FF' })
-    .link(100, 100, 160, 27, 'http://google.com/');
+    // doc.addPage()
+    // .fillColor('blue')
+    // .text('Here is a link!', 100, 100)
+    // .underline(100, 100, 160, 27, { color: '#0000FF' })
+    // .link(100, 100, 160, 27, 'http://google.com/');
 
     // Finalize PDF file
     doc.end();
@@ -265,9 +270,9 @@ app.post('/vasarlas',auth,async(req,res) =>{
     } else {
         try {
             fs.unlink(`./temp/pdf/${pfdId}.pdf`, function (err) {
-                if (err) {
+               
                     console.log('Sikeres törlés');
-                }}
+                }
             )
         } catch (error) {
             console.log(error)
@@ -277,14 +282,19 @@ app.post('/vasarlas',auth,async(req,res) =>{
     });
 })
 
+app.get('/verify',auth,async(req,res) =>{
+    res.status(200).json({
+        status:"ok"
+    })
+})
 
     // bejelentkezés elérési út
 app.post('/login',async(req,res) => {
     const {nev,jelszo} = req.body
-    
+
     if(!nev || !jelszo){
         return res.status(400).json({
-            error : 'hibás adatok'
+            message : 'hibás adatok'
         });
     }
     try {
@@ -316,7 +326,7 @@ app.post('/login',async(req,res) => {
                     })
                 }
             })
-        } 
+        }
     } catch (error) {
         return res.status(500).json({
             error : error.message
