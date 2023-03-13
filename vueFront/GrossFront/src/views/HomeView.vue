@@ -20,7 +20,7 @@
 </script>
 
 <template>
-
+<div>
   <navbar>
     <RouterLink to="/termekek/nadragok" class="r-link">
       Gross Nadrágok 
@@ -34,12 +34,12 @@
       Gross Puloverek 
     </RouterLink>
 
-    <RouterLink to="/kosarad" class="r-link">
+    <RouterLink to="/kosar" class="r-link">
       Kosarad
     </RouterLink>
 
   </navbar>
-  
+</div>
   <form action="" @submit.prevent="logout">
     <button type="submit">Kijelentkezés</button>
   </form>
