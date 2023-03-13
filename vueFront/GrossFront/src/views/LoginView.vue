@@ -34,6 +34,6 @@
         <button type="submit">Bejelentkezés</button>
     </form>
     <RouterLink to="/register" class="r-link">
-     Vagy regisztrálj...
+     Vagy regisztrálj... haha
     </RouterLink>
 </template>
