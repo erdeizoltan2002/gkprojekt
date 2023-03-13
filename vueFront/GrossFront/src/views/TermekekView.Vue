@@ -26,22 +26,34 @@
 </script>
 
 
+
 <template>
-    <!-- termékek kiiratása -->
-    <div v-if="loading == true">
-        <h1>{{ $route.params.id }}</h1>
-        {{ termekek }}
-        <div v-for="termek in termekek" :key="termekek.id">
-            <h2>{{ termek.megnevezes }}</h2>
-            <p>termékkép</p>
-            <p>Ára: {{ termek.osszeg }}</p>
-            <p>Méret: {{ termek.meret }}</p>
-            <button type="submit" @click="termekMegtekint(termek.id)">Termék megtekintése</button>
+    <div></div>
+    <div v-if="loading== true">
+        <!-- termékek kiiratása -->
+        <div class="row">
+            <div class="col-3 "  v-for="termek in termekek" :key="termekek.id">
+                <div class="card"  style="width: 18rem;">
+                    <img src="/gorsskid.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ termek.megnevezes }}</h5>
+                        <p class="card-text">Some quick example text to build on the card
+                            title and make up the bulk of the card's content.</p>
+                        <button type="submit" class="btn btn-primary" @click="termekMegtekint(termek.id)">Termék megtekintése</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div v-else>
+
+   <!-- <div v-else>
         Loading
         {{ loading }}
-    </div>
-</template>
+    </div> -->
 
+</template>
+<style scope>
+    .row{
+        padding: 25px;
+    }
+</style>

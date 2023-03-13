@@ -9,6 +9,7 @@ import axios from 'axios'
 
 
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -46,7 +47,15 @@ const router = createRouter({
       children:[{path:'',name:'termekek',component:TermekekView},
       {path:':termek',name:'termek', component:KivalasztottTermekekView}]
       
-    }
+    },
+    // {
+    //   path: '/logout',
+    //   meta:{
+    //     requiresAuth:true     //majd a vásárlási felület mert védett útvonal
+    //   },
+    //   name: 'logout',
+    //   component: KijelentkezesView
+    // }
   ]
 })
 

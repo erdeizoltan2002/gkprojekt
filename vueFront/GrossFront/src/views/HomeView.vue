@@ -1,7 +1,20 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router'
- 
+  import { routerKey, RouterLink, RouterView } from 'vue-router'
+  import axios from 'axios'
+  import {useRouter} from 'vue-router'
 
+
+
+  const router = useRouter();
+ 
+  const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    router.push('/login')
+  }
+    
+      
+    
  
 
 </script>
@@ -21,6 +34,10 @@
       Gross Puloverek 
     </RouterLink>
   </navbar>
+  
+  <form action="" @submit.prevent="logout">
+    <button type="submit">Kijelentkezés</button>
+  </form>
   <br>
   <h3>Termék infók</h3> 
   <p>Termékekről</p>
