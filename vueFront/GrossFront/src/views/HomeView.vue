@@ -33,6 +33,11 @@
     <RouterLink to="/termekek/puloverek" class="r-link">
       Gross Puloverek 
     </RouterLink>
+
+    <RouterLink to="/kosarad" class="r-link">
+      Kosarad
+    </RouterLink>
+
   </navbar>
   
   <form action="" @submit.prevent="logout">

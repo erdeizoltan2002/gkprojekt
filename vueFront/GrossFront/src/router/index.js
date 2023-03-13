@@ -48,6 +48,15 @@ const router = createRouter({
       {path:':termek',name:'termek', component:KivalasztottTermekekView}]
       
     },
+    {
+      path: '/kosarad',
+      meta:{
+        requiresAuth:true     //majd a vásárlási felület mert védett útvonal
+      },
+      name: 'Kosarad',
+      component: KosaradView
+    },
+    
     // {
     //   path: '/logout',
     //   meta:{
