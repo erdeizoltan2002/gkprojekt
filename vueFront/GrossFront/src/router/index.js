@@ -5,9 +5,9 @@ import TermekekView from '../views/TermekekView.vue'
 import TermekekNavView from '../views/TermekekNavView.vue'
 import KivalasztottTermekekView from '../views/KivalasztottTermekekView.vue'
 import RegisztView from '../views/RegisztView.vue'
-import KosarView from '../views/KosarView.vue'
-
 import axios from 'axios'
+
+
 
 
 const router = createRouter({
@@ -49,13 +49,14 @@ const router = createRouter({
       
     },
     {
-      path: '/kosar',
+      path: '/kosarad',
       meta:{
         requiresAuth:true     //majd a vásárlási felület mert védett útvonal
       },
-      name: 'Kosar',
-      component: KosarView
+      name: 'Kosarad',
+      component: KosaradView
     },
+    
     // {
     //   path: '/logout',
     //   meta:{

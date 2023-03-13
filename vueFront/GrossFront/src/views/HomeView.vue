@@ -34,9 +34,10 @@
       Gross Puloverek 
     </RouterLink>
 
-    <RouterLink to="/Kosar" class="r-link">
+    <RouterLink to="/kosarad" class="r-link">
       Kosarad
     </RouterLink>
+
   </navbar>
   
   <form action="" @submit.prevent="logout">
