@@ -2,7 +2,7 @@
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
-    // import { createPopper } from '@popperjs/core';   
+    import { createPopper } from '@popperjs/core';   
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -41,8 +41,6 @@
         
     }
 
-
-
 </script>
 
 
@@ -54,7 +52,7 @@
         <h1>{{ $route.params.id }}</h1>
         {{ kosar }}
             <div v-for="termek in termekek" :key="termekek.id">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-width: 2.7px; border-color: lightgrey;">
                     <img src="/gorsskid.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                         <h2>{{ termek.megnevezes }}</h2>
