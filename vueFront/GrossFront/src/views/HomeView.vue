@@ -2,6 +2,7 @@
   import { routerKey, RouterLink, RouterView } from 'vue-router'
   import axios from 'axios'
   import {useRouter} from 'vue-router'
+  
 
 
 
@@ -16,12 +17,8 @@
 </script>
 
 <template>
-<div >
+  <div>
     <navbar id="navi">
-      <RouterLink to="/termekek/nadragok" class="r-link">
-       Gross Nadrágok
-      </RouterLink>
-
       <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
