@@ -6,6 +6,7 @@ import TermekekNavView from '../views/TermekekNavView.vue'
 import KivalasztottTermekekView from '../views/KivalasztottTermekekView.vue'
 import RegisztView from '../views/RegisztView.vue'
 import KosarView from '../views/KosarView.vue'
+import AdminView from '../views/AdminView.vue'
 import axios from 'axios'
 
 
@@ -56,6 +57,14 @@ const router = createRouter({
       },
       name: 'kosar',
       component: KosarView
+    },
+    {
+      path: '/admin',
+      meta:{
+        requiresAuth:true     //majd a vásárlási felület mert védett útvonal
+      },
+      name: 'Admin',
+      component: AdminView
     }
     
     // {
