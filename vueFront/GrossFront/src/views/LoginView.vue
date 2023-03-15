@@ -19,7 +19,7 @@
                 router.push('/')
             }
         ).catch(
-            function(erroor) {
+            function(error) {
                 console.log(error)
             }
         )
