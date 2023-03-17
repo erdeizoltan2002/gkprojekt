@@ -4,6 +4,7 @@
     
 
     const kosar = ref([])
+    const termekek = ref([])
     const Route = useRoute()
     const Router = useRouter()
 
@@ -16,13 +17,26 @@ onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
     })
 
+const termekMod = async(id) =>{
+    kosar.value.push({
+        id:id.id,
+        megnevezes : id.megnevezes,
+        meret: id.meret,
+        osszeg: id.osszeg
+    })
+}
+
+    
    
 </script>
 
 <template>
     <div id="shoppingcart">
-        <h1>Ez a kosár</h1>
+        <h1>Kosarad</h1>
         {{ kosar }}
+        <div v-for="termekMod in termekModok">
+             <p>{{ megnevezes }}</p>
+        </div>
     </div>
 </template>
 
