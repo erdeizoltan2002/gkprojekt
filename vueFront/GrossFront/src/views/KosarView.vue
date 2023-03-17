@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref,onMounted } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
     
 
@@ -12,7 +12,9 @@
     location: "asda",
 }
 
-window.localStorage.setItem('user', JSON.stringify(person));
+onMounted(async ()=>{
+        kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
+    })
 
    
 </script>

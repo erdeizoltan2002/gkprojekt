@@ -36,6 +36,7 @@ const task = cron.schedule('1 * * * *', () => {
         })
     } catch (error) {
         console.log(error)
+        console.log("A tokened lejárt, jelentkezz be újra")
     }
 });
 task.start();
@@ -215,35 +216,27 @@ app.post('/vasarlas',auth,async(req,res) =>{
     {   // file on disk as an attachment
         filename: 'szamla.pdf',
         path: `./temp/pdf/${pfdId}.pdf`
-    }]
+    }],
+
+
     }
 
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
+    // Embed a font, set the font size, and render some text
+    doc.fontSize(25)
+    .text('GrossKidz számlája!', 120, 120)
+    .underline(120, 120, 360, 27, { color: '#000000' })
 
     // Apply a picture and modify it as well
-
     // doc.image('termekkepek/gorsskid.jpg', {
     //     fit: [90, 80],
     //     align: 'right',
     //     valign: 'top',
     // });
 
-    // Embed a font, set the font size, and render some text
-    doc.fontSize(25)
-    .text('GrossKidz számlája!', 100, 100);
-
-    
-   
-
-    // Draw a triangle if u want
-    // doc.save()
-    // .moveTo(100, 150)
-    // .lineTo(100, 250)
-    // .lineTo(200, 250)
-    // .fill('#FF3300');
 
     // Apply some transforms and render an SVG path with the 'even-odd' fill rule
     doc.scale(0.6)
