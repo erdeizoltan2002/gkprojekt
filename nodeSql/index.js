@@ -205,7 +205,6 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .toString(16)
     .substring(1);
 
-    
    //email-pdf rész
     var mailOptions = {
     from: 'noreplygrosskidz1@gmail.com',
@@ -217,42 +216,19 @@ app.post('/vasarlas',auth,async(req,res) =>{
         filename: 'szamla.pdf',
         path: `./temp/pdf/${pfdId}.pdf`
     }],
-
-
     }
-
     // Pipe its output somewhere, like to a file or HTTP response
     // See below for browser usage
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
-
     // Embed a font, set the font size, and render some text
     doc.fontSize(25)
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
-
-    // Apply a picture and modify it as well
-    // doc.image('termekkepek/gorsskid.jpg', {
-    //     fit: [90, 80],
-    //     align: 'right',
-    //     valign: 'top',
-    // });
-
-
-    // Apply some transforms and render an SVG path with the 'even-odd' fill rule
     doc.scale(0.6)
     .translate(470, -380)
     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
     .fill('red', 'even-odd')
     .restore();
-
-    // Add some text with annotations
-    // doc.addPage()
-    // .fillColor('blue')
-    // .text('Here is a link!', 100, 100)
-    // .underline(100, 100, 160, 27, { color: '#0000FF' })
-    // .link(100, 100, 160, 27, 'http://google.com/');
-
-    // Finalize PDF file
     doc.end();
 
     //email küldés pdf-el, pdf törlés
@@ -270,8 +246,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
             console.log(error)
         }
         res.send('Email elküldve: ' + info.response);
-    }
-    });
+    }});
 })
 
 app.get('/verify',auth,async(req,res) =>{

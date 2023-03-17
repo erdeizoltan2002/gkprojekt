@@ -30,13 +30,25 @@
 
     //kosárba helyezés
     const kosarbaHelyez = async (id) => {
-        kosar.value.push({
-            id:id.id,
-            megnevezes : id.megnevezes,
-            meret: id.meret,
-            osszeg: id.osszeg
-        })
-    }
+        const newitem = ref(0);
+
+        for (let i = 0; i < kosar.value.length; i++) {
+            if(kosar.value[i].id == id.id && kosar.value[i].megnevezes == id.megnevezes) {
+                kosar.value[i].mennyiseg += 1;
+                newitem.value = 1;
+            }
+        }
+        if(newitem.value == 0) {
+            kosar.value.push({
+                        id:id.id,
+                        megnevezes : id.megnevezes,
+                        meret: id.meret,
+                        mennyiseg: 1,
+                        osszeg: id.osszeg
+                    })
+            }
+        }
+
 </script>
 
 
