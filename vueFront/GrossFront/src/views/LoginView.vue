@@ -25,28 +25,6 @@
         )
     }
    
-    
-    // const adminLogin = async()=>{
-    //     await axios.post('/login',{
-    //         nev: felhnev.value,
-    //         jelszo: jelszo.value,
-    //     }).then(
-    //         function(response){
-    //             if(felhnev.value == 'admin'){
-    //             localStorage.setItem('token',JSON.stringify(response.data.token))
-    //             console.log(response.data.token)
-    //             router.push('/admin')
-    //             console.log(response.data.felhnev)
-    //             }
-    //         }
-            
-    //     ).catch(
-    //         function(error) {
-    //             console.log(error)
-    //         }
-    //     )
-        
-    //}
    
     
     

@@ -10,6 +10,6 @@
     </form>
 <div>
     
-    <h1>kaki</h1>
+    
 </div>
 </template>

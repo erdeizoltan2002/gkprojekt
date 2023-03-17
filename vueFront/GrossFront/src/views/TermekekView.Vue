@@ -2,6 +2,7 @@
     import axios from 'axios'
     import { onMounted,ref } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import { routerKey, RouterLink, RouterView } from 'vue-router'
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -28,7 +29,9 @@
 
 
 <template>
-    <div></div>
+    <div>
+       
+    </div>
     <div v-if="loading== true">
         <!-- termékek kiiratása -->
         <div class="row">
@@ -46,14 +49,15 @@
         </div>
     </div>
 
-   <!-- <div v-else>
+   <div v-else>
         Loading
         {{ loading }}
-    </div> -->
+    </div>
 
 </template>
 <style scope>
     .row{
         padding: 25px;
     }
+    
 </style>

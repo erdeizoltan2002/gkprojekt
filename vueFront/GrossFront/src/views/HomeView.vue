@@ -1,4 +1,4 @@
-<script setup>
+<script setup >
   import { routerKey, RouterLink, RouterView } from 'vue-router'
   import axios from 'axios'
   import {useRouter} from 'vue-router'
@@ -27,12 +27,16 @@
         Gross Puloverek
       </RouterLink>
 
+      <RouterLink to="/termekek/nadragok" class="r-link">
+            Gross Nadrágok
+        </RouterLink>
+
       <RouterLink to="/kosar" class="r-link">
         Kosarad
       </RouterLink>
 <br>
-      <form action="" @submit.prevent="logout">
-        <button type="submit">Kijelentkezés</button>
+      <form action="" @submit.prevent="logout" id="logout">
+        <button type="submit" id="ki">Kijelentkezés</button>
       </form>
     </navbar>
 
@@ -80,5 +84,12 @@
     text-align: center;
     margin-top: 20px;
   }
+  #logout{
+    display: block;
+    align-self: center;
+    font-weight: bold;
+  }
+
+
   
 </style>

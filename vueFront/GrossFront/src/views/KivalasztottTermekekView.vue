@@ -1,8 +1,8 @@
 <script setup >
+
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
-    import { createPopper } from '@popperjs/core';   
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -21,8 +21,6 @@
             termekek.value = (response.data.termekek)
         })
     })
-    
-
 
     watch(kosar, (newkosar) =>{
         localStorage.setItem("kosar",JSON.stringify(newkosar))
@@ -38,14 +36,12 @@
             meret: id.meret,
             osszeg: id.osszeg
         })
-        
     }
-
 </script>
 
 
 <template>
-<div>
+    <div>
     <!-- termék kiiratása -->
     <div v-if="loading == true">
         <div class="row">
@@ -68,8 +64,6 @@
                 Loading
                 {{ loading }}
             </div>
-        <!-- <div>
-    </div> -->
 </div>
 
 </template>

@@ -204,9 +204,8 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .toString(16)
     .substring(1);
 
+    
    //email-pdf rész
-
-
     var mailOptions = {
     from: 'noreplygrosskidz1@gmail.com',
     to: email,
