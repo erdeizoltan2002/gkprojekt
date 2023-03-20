@@ -56,21 +56,22 @@
 
 <template>
 <div>
-    <div v-if="kosar.length > 0">
-        <div id="stat">
-            kosaradba helyezve
-        </div>
-        <div id="navigation">
-            <RouterLink to="/kosar" class="r-link">
-                Ugráss a kosaradhoz
-            </RouterLink>
-        </div>
+    <div id="navigation">
+        <RouterLink to="/kosar" class="r-link">
+            Ugráss a kosaradhoz
+        </RouterLink>
     </div>
     <div v-if="loading == true">
         <div id="termek">
         <div class="row">
         <h1>{{ $route.params.id }}</h1>
-        <div v-if="kosar.length == 0" id="state"> Kosarad üres</div>
+        <div v-if="kosar.length == 0" id="state"> 
+            Kosarad üres
+        </div>
+        <div v-else-if="kosar.length > 0">
+            Kosaradba helyezve
+        </div>
+
             <div v-for="termek in termekek" :key="termekek.id">
                 <div class="card" style="width: 18rem; border-width: 2.7px; border-color: lightgrey;">
                     <img src="/gorsskid.jpg" class="card-img-top" alt="...">

@@ -3,8 +3,26 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+  <div id="mainNav">
+    <RouterLink to="/termekek/polok" class="r-link">
+        Gross pólók
+      </RouterLink>
+
+      <RouterLink to="/termekek/puloverek" class="r-link">
+        Gross Puloverek
+      </RouterLink>
+
+      <RouterLink to="/termekek/nadragok" class="r-link">
+            Gross Nadrágok
+        </RouterLink>
+
+      <RouterLink to="/kosar" class="r-link">
+        Kosarad
+      </RouterLink>
+  </div>
   <div>
-    
+
+
     <RouterView />
   </div>
     
@@ -43,4 +61,5 @@ import { RouterLink, RouterView } from 'vue-router'
     display: inline-block;
   }
 </style>
+
 

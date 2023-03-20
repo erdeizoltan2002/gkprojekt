@@ -37,6 +37,7 @@ const task = cron.schedule('1 * * * *', () => {
     } catch (error) {
         console.log(error)
         console.log("A tokened lejárt, jelentkezz be újra")
+        task.end()
     }
 });
 task.start();
@@ -228,6 +229,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
     doc.scale(0.6)
+    .text(to,osszeg)
     .translate(470, -380)
     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
     .fill('red', 'even-odd')

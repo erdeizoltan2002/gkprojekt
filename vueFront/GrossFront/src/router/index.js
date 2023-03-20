@@ -42,7 +42,7 @@ const router = createRouter({
     {
       path:'/termekek/:id',
       meta:{
-        requiresAuth:true
+        requiresAuth:false
       },
       name:'Termekeknav',
       component: TermekekNavView,
