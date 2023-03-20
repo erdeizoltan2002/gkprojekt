@@ -8,10 +8,7 @@
     const Route = useRoute()
     const Router = useRouter()
 
-    const person = {
-    name: "asd",
-    location: "asda",
-}
+
 
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
@@ -44,8 +41,8 @@ watch(kosar, (torolKosar) =>{
         }
     }
     const uresE = async(kosar)=>{
-        if(kosar.value.length == 0){
-            uresE = false;
+        if(kosar.value.length == 0 || kosar.value[i] == null){
+            uresE == true;
         }
     }
     
@@ -55,9 +52,10 @@ watch(kosar, (torolKosar) =>{
 <template>
     <div id="shoppingcart">
         <h1>Kosarad</h1>
-        
-        <div id="osszesit" >
-            <div v-if="uresE == true">Kosarad ures</div>
+        <div v-if="kosar.value == null">
+                <p aria-errormessage="Kosarad üres"></p>
+            </div>
+        <div id="osszesit">
             <div v-for="(items,id) in kosar">
                 <div id="megjelenit">
                     <div id="kep">

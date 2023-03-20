@@ -1,5 +1,5 @@
-<script setup >
-
+<script setup>
+ 
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
@@ -12,6 +12,7 @@
     const kosar = ref([])
 
     
+   
     //kosár 
     onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || []   //a kosárba helyez termékek megmaradnak oldal elhagyása után is
@@ -48,17 +49,28 @@
                     })
             }
         }
-
+     
+       
 </script>
 
 
 <template>
-    <div>
-    <!-- termék kiiratása -->
+<div>
+    <div v-if="kosar.length > 0">
+        <div id="stat">
+            kosaradba helyezve
+        </div>
+        <div id="navigation">
+            <RouterLink to="/kosar" class="r-link">
+                Ugráss a kosaradhoz
+            </RouterLink>
+        </div>
+    </div>
     <div v-if="loading == true">
+        <div id="termek">
         <div class="row">
         <h1>{{ $route.params.id }}</h1>
-        {{ kosar }}
+        <div v-if="kosar.length == 0" id="state"> Kosarad üres</div>
             <div v-for="termek in termekek" :key="termekek.id">
                 <div class="card" style="width: 18rem; border-width: 2.7px; border-color: lightgrey;">
                     <img src="/gorsskid.jpg" class="card-img-top" alt="...">
@@ -66,19 +78,28 @@
                         <h2>{{ termek.megnevezes }}</h2>
                         <p>Ára: {{ termek.osszeg }}</p>
                         <p>Méret: {{ termek.meret }}</p>
+                        <p>Egyéb információk helye a látható termékkel kapcsolatban</p>
                         </div>
                     <button type="submit" class="btn btn-primary" @click="kosarbaHelyez(termek)">Termék kosárba helyezése</button>
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+        </div>
             <div v-else>
                 Loading
                 {{ loading }}
             </div>
 </div>
-
 </template>
-
-    
-     
+<style>
+    #termek{
+        margin-left: 37%;
+        display: flexbox;
+        align-content: center;
+    }
+    #navigation{
+       float: right;    
+       padding-right: 2%;
+    }
+</style>
