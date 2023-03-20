@@ -28,14 +28,13 @@ const logout = async() =>{
     </div>
     <div id="productUp">
         <h5>Termék felvétel:</h5>
-
         <select name="product" placeholder="Termékek" id="">
             <option value="hidden">Válasz terméket</option>
             <option value="" name="pulover">Pulóverek</option>
             <option value="" id="polo">Pólók</option>
             <option value="" id="nadrag">Nadrágok</option>
         </select>
-        <button type="submit" >Kiválaszt</button>
+        <button type="submit">Kiválaszt</button>
 
         <div v-for="termek in termekek">
             <div>
