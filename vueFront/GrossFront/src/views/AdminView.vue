@@ -17,6 +17,12 @@ const logout = async() =>{
 </script>
 
 <template>
+<<<<<<< Updated upstream
+=======
+    <form action="" @submit.prevent="logout">
+        <button type="submit">Kijelentkezés</button>
+    </form>
+>>>>>>> Stashed changes
 <div>
     <div>
 
@@ -76,9 +82,12 @@ const logout = async() =>{
     </div>
 </div>
 </template>
+<<<<<<< Updated upstream
 <style scoped>
     #logout{
         float: right;
         padding: 2%;
     }
 </style>
+=======
+>>>>>>> Stashed changes
