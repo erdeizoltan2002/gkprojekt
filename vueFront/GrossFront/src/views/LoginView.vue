@@ -41,13 +41,19 @@
 
 <template>
 <br>
+<div id="login">
     <form @submit.prevent="login">
-        <input type="text" v-model="felhnev" placeholder="Felhasználó név:">
-        <input type="password" v-model="jelszo" placeholder="Jelszó:">
-        <button type="submit">Bejelentkezés</button>
+        <input type="text" v-model="felhnev" placeholder="Felhasználó név:"><br><br>
+        <input type="password" v-model="jelszo" placeholder="Jelszó:"><br><br>
+        <button type="submit">Bejelentkezés</button><br>
     </form>
     <RouterLink to="/register" class="r-link">
      Vagy regisztrálj...
     </RouterLink>
-    
+</div>
 </template>
+<style scoped>
+    #login{
+        
+    }
+</style>

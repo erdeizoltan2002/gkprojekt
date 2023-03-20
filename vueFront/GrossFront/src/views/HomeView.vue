@@ -19,7 +19,7 @@
 <template>
   <div>
     <navbar id="navi">
-      <RouterLink to="/termekek/polok" class="r-link">
+      <!-- <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
 
@@ -33,12 +33,12 @@
 
       <RouterLink to="/kosar" class="r-link">
         Kosarad
-      </RouterLink>
+      </RouterLink> -->
 <br>
-      <form action="" @submit.prevent="logout" id="logout">
-        <button type="submit" id="ki">Kijelentkezés</button>
-      </form>
-    </navbar>
+  <form action="" @submit.prevent="logout" id="logout">
+      <button type="submit" id="ki">Kijelentkezés</button>
+  </form>
+</navbar>
 
 
 </div>
