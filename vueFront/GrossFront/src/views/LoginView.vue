@@ -7,33 +7,27 @@
     const jelszo = ref('');
     const router = useRouter();
 
+    const adminNev = ref('admin');
+    const adminJel = ref('admin');
 
     const login = async()=>{
         await axios.post('/login',{
             nev: felhnev.value,
             jelszo: jelszo.value,
+            adminNev: felhnev.value,
+            adminJel: jelszo.value
         }).then(
             function(response){
+                if(felhnev.value != adminNev.value){
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)
                 router.push('/')
-            }
-        ).catch(
-            function(error) {
-                console.log(error)
-            }
-        )
-    }
-
-    const adminLogin = async()=>{
-        await axios.post('/login',{
-            nev:felhnev.value,
-            jelszo: jelszo.value,
-        }).then(
-            function(response){
+                }else if(felhnev.value == adminNev.value){
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)
                 router.push('/admin')
+                console.log('admin vagy, hajrá')
+                }
             }
         ).catch(
             function(error) {
@@ -41,8 +35,6 @@
             }
         )
     }
-   
-   
     
     
 </script>
