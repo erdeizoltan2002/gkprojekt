@@ -15,7 +15,8 @@
 
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
-    })
+    }
+    )
 
 const termek = async(id) =>{
     kosar.value.push({
@@ -40,17 +41,23 @@ watch(kosar, (torolKosar) =>{
             }else if( i == id && kosar.value[i].mennyiseg >= 2){
                 kosar.value[i].mennyiseg -= 1;
             }
-            
         }
     }
-   
+    const uresE = async(kosar)=>{
+        if(kosar.value.length == 0){
+            uresE = false;
+        }
+    }
+    
+
 </script>
 
 <template>
     <div id="shoppingcart">
         <h1>Kosarad</h1>
-        {{ kosar }}
+        
         <div id="osszesit" >
+            <div v-if="uresE == true">Kosarad ures</div>
             <div v-for="(items,id) in kosar">
                 <div id="megjelenit">
                     <div id="kep">

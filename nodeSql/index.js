@@ -23,7 +23,7 @@ const db = mySql.createPool({
     queueLimit:0
 })
 
-    // Cron időzítő
+    // Cron időzítő és részei
 const task = cron.schedule('1 * * * *', () => {
     console.log("sad")
     try {
@@ -40,14 +40,13 @@ const task = cron.schedule('1 * * * *', () => {
     }
 });
 task.start();
-
 const app = express();
-
 app.use(bodyParser.json());
-
 app.use(cors());
 
 const query = util.promisify(db.query).bind(db);
+
+
 
     // Blacklist tokenek kezelése
 async function auth(req,res,next){
@@ -119,6 +118,8 @@ app.get('/termekek/:termekek',async(req,res) => {
     }
 })
 
+
+    //termék elérési út id alapján
 app.get('/termekek/:termekek/:id',async(req,res) => {
     const termekek = req.params.termekek
     const id = req.params.id
@@ -187,14 +188,15 @@ app.post('/register',async(req,res) =>{
         });
     }
 })
+
     //emailkülés
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'noreplygrosskidz1@gmail.com',
-            pass: 'tujqowkfhrdyulse'
-        }
-        });
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'noreplygrosskidz1@gmail.com',
+        pass: 'tujqowkfhrdyulse'
+    }
+    });
 
 app.post('/vasarlas',auth,async(req,res) =>{
     const doc = new pdfDocument();
@@ -217,10 +219,11 @@ app.post('/vasarlas',auth,async(req,res) =>{
         path: `./temp/pdf/${pfdId}.pdf`
     }],
     }
-    // Pipe its output somewhere, like to a file or HTTP response
-    // See below for browser usage
+
+    // pdf létrehozása
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
-    // Embed a font, set the font size, and render some text
+
+    // Hozzáadott elemek formázása
     doc.fontSize(25)
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
@@ -238,10 +241,8 @@ app.post('/vasarlas',auth,async(req,res) =>{
     } else {
         try {
             fs.unlink(`./temp/pdf/${pfdId}.pdf`, function (err) {
-               
                     console.log('Sikeres törlés');
-                }
-            )
+                })
         } catch (error) {
             console.log(error)
         }
