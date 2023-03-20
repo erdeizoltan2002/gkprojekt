@@ -52,7 +52,7 @@ import { RouterLink, RouterView } from 'vue-router'
     height: 25%;
     display: block;
   }
-  #navi{
+  #mainNav{
     display: block;
     text-align: center;
     margin-top: 20px;
