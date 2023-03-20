@@ -18,6 +18,11 @@ const logout = async() =>{
 
 <template>
 <div>
+    <div id="logout">
+        <form action="" @submit.prevent="logout">
+            <button type="submit">Kijelentkezés</button>
+        </form>
+    </div>
    
 </div>
 </template>
