@@ -29,6 +29,12 @@ const termek = async(id) =>{
     })
 }
 
+const megrendeles = async () => {
+    await axios.post('/vasarlas', {
+        kosar: JSON.parse(localStorage.getItem("kosar"))
+    })
+} 
+
 watch(kosar, (torolKosar) =>{
         localStorage.setItem("kosar",JSON.stringify(torolKosar))
     },{
@@ -90,7 +96,7 @@ watch(kosar, (torolKosar) =>{
                         <option value="atvetel">Fizetés átvételkor</option>
                     </select>
                     <div>
-                        <button type="submit">Megrendelés</button>
+                        <button @click="megrendeles()" type="submit">Megrendelés</button>
                     </div>
                 </div>
         </div>

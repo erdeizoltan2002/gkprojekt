@@ -120,6 +120,31 @@ app.get('/termekek/:termekek',async(req,res) => {
     }
 })
 
+app.post('/termekek/:termekek',async(req,res)=>{
+    const termekek = req.params.termekek
+    const {
+        kep,
+        megnevezes,
+        meret,
+        osszeg
+    } = req.body
+
+    if(!kep || !megnevezes || !meret || !osszeg){
+        res.status(401).json({
+            error: 'Hibás adatok'
+        });
+    }
+    try {
+        await query('INSERT INTO '+ termekek +' (`kep`, `megnevezes`, `meret`, `osszeg`) VALUES (?,?,?,?)', [kep,megnevezes,meret,osszeg])
+        res.status(201).json({
+            status: 'sikeres feltöltés'
+        })
+    } catch (error) {
+        res.status(401).json({
+            error: error
+        });
+    }
+})
 
     //termék elérési út id alapján
 app.get('/termekek/:termekek/:id',async(req,res) => {
@@ -210,10 +235,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .toString(16)
     .substring(1);
 
-    // let str = ""
-    // for (let i = 0; i < kosar.length; i++)
-    //     str+= kosar[]
-    // }
+
 
    //email-pdf rész
     var mailOptions = {
@@ -229,6 +251,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
     }
 
 
+
     // pdf létrehozása
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
@@ -236,18 +259,21 @@ app.post('/vasarlas',auth,async(req,res) =>{
     doc.fontSize(25)
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
-    doc.scale(0.6)
+    
 
-    .text('Termék megnevezése:',220,520,120)
-    .text(kosar[0].megnevezes)
-    .text('Termék mennyisége:')
-    .text(kosar[0].mennyiseg)
-    .text('Összege:')
-    .text(kosar[0].osszeg +'Ft')
-    .translate(470, -380)
-    .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-    .fill('red', 'even-odd')
-    .restore();
+    for (let i = 0; i < kosar.length; i++) {
+        doc.scale(0.6)
+
+        .text('Termék megnevezése:',220+i,520+i,120+i)
+        .text(kosar[i].megnevezes)
+        .text('Termék mennyisége:')
+        .text(kosar[i].mennyiseg)
+        .text('Összege:')
+        .text(kosar[i].osszeg +'Ft')
+        .restore();
+    }
+
+
     doc.end();
 
     //email küldés pdf-el, pdf törlés
