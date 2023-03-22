@@ -2,6 +2,7 @@
     import axios from 'axios';
     import { ref,onMounted,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import Swal from 'sweetalert2'
     
 
     const kosar = ref([])
@@ -49,7 +50,10 @@ watch(kosar, (torolKosar) =>{
             }else if( i == id && kosar.value[i].mennyiseg >= 2){
                 kosar.value[i].mennyiseg -= 1;
             }
-        }
+        }Swal.fire(
+                'Termék törölve a kosaradból',
+                'success'
+                )
     }
     const uresE = async(kosar)=>{
         if(kosar.value.length == 0 || kosar.value[i] == null){

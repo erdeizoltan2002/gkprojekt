@@ -1,17 +1,17 @@
 <script setup >
-    import {ref} from 'vue'
+    import {onMounted,ref} from 'vue'
     import axios from 'axios'
     import {useRouter} from 'vue-router'
     import Swal from 'sweetalert2'
 
 
-    // const Swal = require('sweetalert2')
     const felhnev = ref('');
     const jelszo = ref('');
     const router = useRouter();
 
     const adminNev = ref('admin');
     const adminJel = ref('admin');
+    const tokenE = ref('')
 
     const login = async()=>{
         await axios.post('/login',{
@@ -43,8 +43,7 @@
             }
         )
     }
-    
-    
+  
 </script>
 
 <template>

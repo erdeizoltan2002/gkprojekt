@@ -25,7 +25,7 @@ const db = mySql.createPool({
 })
 
     // Cron időzítő és részei
-const task = cron.schedule('*/2 * * * *', () => {
+const task = cron.schedule('1 * * * *', () => {
     console.log("sad")
     try {
         db.query("DELETE FROM `blacklist` WHERE exp_date <  DATE_SUB(NOW(),INTERVAL 1 HOUR)", (req,results) =>{
@@ -37,7 +37,7 @@ const task = cron.schedule('*/2 * * * *', () => {
         })
     } catch (error) {
         console.log(error)
-        task.stop()
+        task.end()
         console.log('Megállítva')
     }
 });

@@ -50,7 +50,10 @@ const logout = async() =>{
                         mennyiseg: 1,
                         osszeg: id.osszeg
                     })
-            }
+            }Swal.fire(
+                'Hozzáadva a kosaradhoz',
+                'success'
+                )
         }
      
        

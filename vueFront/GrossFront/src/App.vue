@@ -11,7 +11,10 @@ if (!localStorage.getItem('token')) {
 </script>
 
 <template>
+<div>
+  <div class="row">
   <div id="mainNav">
+    <div class="col">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
@@ -27,13 +30,13 @@ if (!localStorage.getItem('token')) {
       <RouterLink to="/kosar" class="r-link">
         Kosarad
       </RouterLink>
+    </div>
   </div>
-  <div>
-
-
-    <RouterView />
-  </div>
-
+</div>
+<div>
+  <RouterView />
+</div>
+</div>
     
 </template>
 
