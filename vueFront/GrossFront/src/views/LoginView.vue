@@ -2,7 +2,10 @@
     import {ref} from 'vue'
     import axios from 'axios'
     import {useRouter} from 'vue-router'
+    import Swal from 'sweetalert2'
 
+
+    // const Swal = require('sweetalert2')
     const felhnev = ref('');
     const jelszo = ref('');
     const router = useRouter();
@@ -22,6 +25,11 @@
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)
                 router.push('/')
+                Swal.fire(
+                'Üdv '+felhnev.value+' !',
+                'Sikeres bejelentkezés',
+                'success'
+                )
                 }else if(felhnev.value == adminNev.value){
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)

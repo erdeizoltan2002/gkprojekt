@@ -5,7 +5,7 @@ import router from './router'
 import "./axios"
 import "bootstrap/dist/js/bootstrap.js"
 import "@popperjs/core"
-
+import Swal from 'sweetalert2'
 
 const app = createApp(App)
 
