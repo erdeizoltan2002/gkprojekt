@@ -40,6 +40,7 @@
                     <img src="/gorsskid.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ termek.megnevezes }}</h5>
+                        <p class="card-text">Méret: {{ termek.meret }}</p>
                         <p class="card-text">Some quick example text to build on the card
                             title and make up the bulk of the card's content.</p>
                         <button type="submit" class="btn btn-primary" @click="termekMegtekint(termek.id)">Termék megtekintése</button>

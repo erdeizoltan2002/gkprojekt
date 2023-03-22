@@ -23,7 +23,7 @@ const db = mySql.createPool({
     queueLimit:0
 })
 
-    // Cron időzítő
+    // Cron időzítő és részei
 const task = cron.schedule('1 * * * *', () => {
     console.log("sad")
     try {
@@ -37,17 +37,17 @@ const task = cron.schedule('1 * * * *', () => {
     } catch (error) {
         console.log(error)
         console.log("A tokened lejárt, jelentkezz be újra")
+        task.end()
     }
 });
 task.start();
-
 const app = express();
-
 app.use(bodyParser.json());
-
 app.use(cors());
 
 const query = util.promisify(db.query).bind(db);
+
+
 
     // Blacklist tokenek kezelése
 async function auth(req,res,next){
@@ -119,6 +119,8 @@ app.get('/termekek/:termekek',async(req,res) => {
     }
 })
 
+
+    //termék elérési út id alapján
 app.get('/termekek/:termekek/:id',async(req,res) => {
     const termekek = req.params.termekek
     const id = req.params.id
@@ -187,14 +189,15 @@ app.post('/register',async(req,res) =>{
         });
     }
 })
+
     //emailkülés
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'noreplygrosskidz1@gmail.com',
-            pass: 'tujqowkfhrdyulse'
-        }
-        });
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'noreplygrosskidz1@gmail.com',
+        pass: 'tujqowkfhrdyulse'
+    }
+    });
 
 app.post('/vasarlas',auth,async(req,res) =>{
     const doc = new pdfDocument();
@@ -205,7 +208,6 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .toString(16)
     .substring(1);
 
-    
    //email-pdf rész
     var mailOptions = {
     from: 'noreplygrosskidz1@gmail.com',
@@ -217,42 +219,21 @@ app.post('/vasarlas',auth,async(req,res) =>{
         filename: 'szamla.pdf',
         path: `./temp/pdf/${pfdId}.pdf`
     }],
-
-
     }
 
-    // Pipe its output somewhere, like to a file or HTTP response
-    // See below for browser usage
+    // pdf létrehozása
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
-    // Embed a font, set the font size, and render some text
+    // Hozzáadott elemek formázása
     doc.fontSize(25)
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
-
-    // Apply a picture and modify it as well
-    // doc.image('termekkepek/gorsskid.jpg', {
-    //     fit: [90, 80],
-    //     align: 'right',
-    //     valign: 'top',
-    // });
-
-
-    // Apply some transforms and render an SVG path with the 'even-odd' fill rule
     doc.scale(0.6)
+    .text(to,osszeg)
     .translate(470, -380)
     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
     .fill('red', 'even-odd')
     .restore();
-
-    // Add some text with annotations
-    // doc.addPage()
-    // .fillColor('blue')
-    // .text('Here is a link!', 100, 100)
-    // .underline(100, 100, 160, 27, { color: '#0000FF' })
-    // .link(100, 100, 160, 27, 'http://google.com/');
-
-    // Finalize PDF file
     doc.end();
 
     //email küldés pdf-el, pdf törlés
@@ -262,16 +243,13 @@ app.post('/vasarlas',auth,async(req,res) =>{
     } else {
         try {
             fs.unlink(`./temp/pdf/${pfdId}.pdf`, function (err) {
-               
                     console.log('Sikeres törlés');
-                }
-            )
+                })
         } catch (error) {
             console.log(error)
         }
         res.send('Email elküldve: ' + info.response);
-    }
-    });
+    }});
 })
 
 app.get('/verify',auth,async(req,res) =>{
