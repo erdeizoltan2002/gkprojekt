@@ -53,12 +53,35 @@ const logout = async () => {
     <h3>Termék infók</h3>
   </div>
 
-  <div class="about">
-    <iframe style="border-radius:12px"
-      src="https://open.spotify.com/embed/playlist/7mIA2wJilXJVFsV09Xcvmc?utm_source=generator&theme=0" width="40%"
-      height="352" frameBorder="0" allowfullscreen="" id="spotify"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam a saepe sapiente ea quam minus eius quos cum voluptatibus. Animi vel aut doloribus reiciendis accusantium sit repudiandae incidunt soluta possimus! </p>
+  <div class="contaioner" id="about">
+    <div class="row">
+      <div class="col-sm">
+        <iframe style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/7mIA2wJilXJVFsV09Xcvmc?utm_source=generator&theme=0" width="100%"
+          height="352" frameBorder="0" allowfullscreen="" id="spotify"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+      <div class="col-sm">
+        <img src="../../kepek/gk_tags.jpg" id="tags" alt="">
+      </div>
+      <div class="col-sm">
+        <p id="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec metus lacus. Cras finibus eleifend porttitor.
+          In tellus mi, pulvinar in auctor quis, malesuada eu eros. Mauris nec velit tincidunt mauris elementum
+          scelerisque. Phasellus tempus nisi eget ex semper, et consequat lacus viverra. Nullam nec eros ac ex condimentum
+          ultricies ultricies et metus. Nullam vulputate id enim a gravida. Vestibulum malesuada risus quis viverra
+          congue. Maecenas eu auctor mauris. Phasellus scelerisque tristique dui, quis dictum leo congue eget. Fusce
+          volutpat vestibulum fermentum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+          curae; Cras feugiat elit at ex dapibus dignissim.
+
+          Donec sagittis eget urna quis ultricies. Sed tristique lacus vel cursus bibendum. Aliquam feugiat enim at porta
+          efficitur. In tincidunt pharetra nibh vel rhoncus. Quisque finibus et nisl in efficitur. Proin a odio ipsum.
+          Integer rutrum libero ut nunc pretium, sit amet blandit ligula tristique. Nam sollicitudin non elit nec lacinia.
+          Cras nulla nisi, finibus nec dui eu, semper rutrum magna. Vivamus quis dictum mauris. Vestibulum ante ipsum
+          primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed eu felis diam. Ut vehicula velit urna,
+          eget accumsan felis sollicitudin eu. Vivamus sit amet urna ex. Vestibulum purus enim, rutrum et congue at,
+          suscipit quis magna. Vestibulum posuere pulvinar nisi nec molestie.</p>
+      </div>
+    </div>
   </div>
 </template>
 <style>
@@ -83,7 +106,7 @@ const logout = async () => {
   color: white;
   text-decoration: none;
   font-size: x-large;
-  font-family: 'Garamond';  
+  font-family: 'Garamond';
 }
 
 .r-link-kosar:hover {
@@ -99,7 +122,7 @@ const logout = async () => {
   padding: 2%;
 }
 
-.about {
+#about {
   border-top: 0px;
   border-style: solid;
   padding: 15px;
@@ -137,9 +160,18 @@ const logout = async () => {
   margin-left: 810px;
 }
 
-#spotify{
+#spotify {
   position: relative;
-    
+  height: 450px;
 }
 
+#paragraph{
+  text-align: justify;
+}
+
+#tags {
+  width: 550px;
+  height: 330px;
+  margin-left: 30px;
+}
 </style>
