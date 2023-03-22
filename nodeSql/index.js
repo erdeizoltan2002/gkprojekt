@@ -269,7 +269,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
         .text('Termék mennyisége:')
         .text(kosar[i].mennyiseg)
         .text('Összege:')
-        .text(kosar[i].osszeg +'Ft')
+        .text(kosar[i].osszeg * kosar[i].mennyiseg +'Ft')
         .restore();
     }
 
