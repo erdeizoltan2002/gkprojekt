@@ -72,8 +72,8 @@ watch(kosar, (torolKosar) =>{
                         <img src="/gorsskid.jpg" alt="" id="termkep" >
                     </div>
                     <div id="adatok">
-                        <div id="megnev">Termék megnevezés:{{ items?.megnevezes }}</div>
-                        <div id="menny">Darabszám: {{ items?.mennyiseg }}</div>
+                        <div id="megnev" >Termék megnevezés: {{ items?.megnevezes }}</div>
+                        <div id="menny" >Darabszám: {{ items?.mennyiseg }}</div>
                         <div id="meret">Mérete: {{ items?.meret }}</div>
                         <div id="ar">Ára: {{ items?.osszeg }}ft (termékenként)</div>
                         <div id="torol">
@@ -162,5 +162,4 @@ watch(kosar, (torolKosar) =>{
         float: right;
         font-weight: bold;
     }
-    
 </style>

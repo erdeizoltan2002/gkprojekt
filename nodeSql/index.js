@@ -10,6 +10,7 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const pdfDocument = require('pdfkit');
 const fs = require('fs');
+const { text } = require('pdfkit');
 const router = express.Router();
 
 
@@ -204,9 +205,15 @@ app.post('/vasarlas',auth,async(req,res) =>{
     const token = req.headers.authorization;
     const decode = jwt.verify(token,process.env.secret);
     const email = decode.email;
+    const {kosar} = req.body
     const pfdId = Math.floor((1 + Math.random()) * 0x100000000)
     .toString(16)
     .substring(1);
+
+    // let str = ""
+    // for (let i = 0; i < kosar.length; i++)
+    //     str+= kosar[]
+    // }
 
    //email-pdf rész
     var mailOptions = {
@@ -221,6 +228,7 @@ app.post('/vasarlas',auth,async(req,res) =>{
     }],
     }
 
+
     // pdf létrehozása
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
@@ -229,7 +237,13 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
     doc.scale(0.6)
-    .text(to,osszeg)
+
+    .text('Termék megnevezése:',220,520,120)
+    .text(kosar[0].megnevezes)
+    .text('Termék mennyisége:')
+    .text(kosar[0].mennyiseg)
+    .text('Összege:')
+    .text(kosar[0].osszeg +'Ft')
     .translate(470, -380)
     .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
     .fill('red', 'even-odd')
