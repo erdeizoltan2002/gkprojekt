@@ -53,7 +53,8 @@
 </div>
 </template>
 <style scoped>
-    /* #login{
-        
-    } */
+    #login{
+     text-align: center;
+     padding-top: 5%;
+    }
 </style>
