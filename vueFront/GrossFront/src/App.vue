@@ -1,6 +1,13 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import axios from 'axios';
+import { RouterLink, RouterView,useRouter } from 'vue-router'
 
+
+const router =  useRouter();
+
+if (!localStorage.getItem('token')) {
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -26,6 +33,7 @@ import { RouterLink, RouterView } from 'vue-router'
 
     <RouterView />
   </div>
+
     
 </template>
 

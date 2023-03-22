@@ -37,7 +37,6 @@ const task = cron.schedule('1 * * * *', () => {
         })
     } catch (error) {
         console.log(error)
-        console.log("A tokened lejárt, jelentkezz be újra")
         task.end()
     }
 });
