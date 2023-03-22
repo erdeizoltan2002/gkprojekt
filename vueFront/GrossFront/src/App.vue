@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <div id="mainNav">
+  <!-- <div id="mainNav">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
@@ -19,10 +19,8 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/kosar" class="r-link">
         Kosarad
       </RouterLink>
-  </div>
+  </div> -->
   <div>
-
-
     <RouterView />
   </div>
     
