@@ -1,4 +1,5 @@
 <script setup>
+    import axios from 'axios';
     import { ref,onMounted,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
     
@@ -8,7 +9,11 @@
     const Route = useRoute()
     const Router = useRouter()
 
-
+const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    Router.push('/login')
+}
 
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
@@ -51,6 +56,11 @@ watch(kosar, (torolKosar) =>{
 
 <template>
     <div id="shoppingcart">
+        <div id="logout">
+            <form action="" @submit.prevent="logout" id="logout">
+                <button type="submit" id="ki">Kijelentkezés</button>
+            </form>
+        </div>
         <h1>Kosarad</h1>
         <div v-if="kosar.value == null">
                 <p aria-errormessage="Kosarad üres"></p>
@@ -147,6 +157,10 @@ watch(kosar, (torolKosar) =>{
     #ar{
         padding: 2%;
         display: inline-block;
+    }
+    #logout{
+        float: right;
+        font-weight: bold;
     }
     
 </style>

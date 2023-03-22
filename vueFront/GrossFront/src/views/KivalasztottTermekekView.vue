@@ -1,5 +1,4 @@
 <script setup>
- 
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
@@ -7,10 +6,15 @@
     const termekek = ref([]);
     const loading = ref(false)
     const route = useRoute()
-    const router = useRouter()
+    const Router = useRouter()
 
     const kosar = ref([])
 
+const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    Router.push('/login')
+}
     
    
     //kosár 
@@ -56,10 +60,16 @@
 
 <template>
 <div>
+    <div id="logout">
+        <form action="" @submit.prevent="logout" id="logout">
+            <button type="submit" id="ki">Kijelentkezés</button>
+        </form>
+    </div>
     <div id="navigation">
         <RouterLink to="/kosar" class="r-link">
             Ugráss a kosaradhoz
         </RouterLink>
+        
     </div>
     <div v-if="loading == true">
         <div id="termek">
@@ -93,7 +103,7 @@
             </div>
 </div>
 </template>
-<style>
+<style scoped>
     #termek{
         margin-left: 37%;
         display: flexbox;
@@ -103,4 +113,8 @@
        float: right;    
        padding-right: 2%;
     }
+    #logout{
+        float: left;
+    }
+
 </style>
