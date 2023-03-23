@@ -57,6 +57,11 @@ const feltolt = async() =>{
             </select>
         </div>
     <br>
+    <h5>Megnevezés</h5>
+        <div id="megnevForm">
+            <input type="text" name="megnevezes" v-model="ujAdatok.megnevezes">
+        </div>
+    <br>
     <h5>Méret:</h5>
     <div id="meretForm">
         <select name="" id="" v-model="ujAdatok.meret">
