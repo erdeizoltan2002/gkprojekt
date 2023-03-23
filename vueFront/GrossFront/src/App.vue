@@ -1,8 +1,9 @@
-<script setup >
+<script setup>
 import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
+<<<<<<< HEAD
   <!-- <div id="mainNav">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
@@ -21,6 +22,10 @@ import { RouterLink, RouterView } from 'vue-router'
       </RouterLink>
   </div> -->
   <div>
+=======
+  <div>
+    
+>>>>>>> parent of 9061f74 (Merge branch 'Barna')
     <RouterView />
   </div>
     
@@ -50,7 +55,7 @@ import { RouterLink, RouterView } from 'vue-router'
     height: 25%;
     display: block;
   }
-  #mainNav{
+  #navi{
     display: block;
     text-align: center;
     margin-top: 20px;
@@ -59,5 +64,4 @@ import { RouterLink, RouterView } from 'vue-router'
     display: inline-block;
   }
 </style>
-
 
