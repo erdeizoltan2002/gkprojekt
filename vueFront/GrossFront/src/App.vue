@@ -1,12 +1,22 @@
 <script setup>
 import axios from 'axios';
 import { RouterLink, RouterView,useRouter } from 'vue-router'
-
+import {ref,onMounted,watch} from 'vue  '
 
 const router =  useRouter();
 
 if (!localStorage.getItem('token')) {
   router.push('/login')
+}
+
+
+
+
+
+const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    Router.push('/login')
 }
 </script>
 
