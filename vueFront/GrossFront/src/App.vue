@@ -1,9 +1,20 @@
-<script setup >
-import { RouterLink, RouterView } from 'vue-router'
+<script setup>
+import axios from 'axios';
+import { RouterLink, RouterView,useRouter } from 'vue-router'
+
+
+const router =  useRouter();
+
+if (!localStorage.getItem('token')) {
+  router.push('/login')
+}
 </script>
 
 <template>
+<div>
+  <div class="row">
   <div id="mainNav">
+    <div class="col">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
@@ -19,12 +30,13 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/kosar" class="r-link">
         Kosarad
       </RouterLink>
+    </div>
   </div>
-  <div>
-
-
-    <RouterView />
-  </div>
+</div>
+<div>
+  <RouterView />
+</div>
+</div>
     
 </template>
 

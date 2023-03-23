@@ -1,7 +1,6 @@
 <script setup >
-  import { routerKey, RouterLink, RouterView } from 'vue-router'
+  import {RouterLink,useRouter} from 'vue-router'
   import axios from 'axios'
-  import {useRouter} from 'vue-router'
   
 
 
@@ -35,9 +34,11 @@
         Kosarad
       </RouterLink> -->
 <br>
-  <form action="" @submit.prevent="logout" id="logout">
-      <button type="submit" id="ki">Kijelentkezés</button>
-  </form>
+  <div id="kijel">
+    <form action="" @submit.prevent="logout" id="logout">
+        <button type="submit" id="ki">Kijelentkezés</button>
+    </form>
+  </div>
 </navbar>
 
 
@@ -85,7 +86,7 @@
     margin-top: 20px;
   }
   #logout{
-    display: block;
+    display: inline-block;
     align-self: center;
     font-weight: bold;
   }

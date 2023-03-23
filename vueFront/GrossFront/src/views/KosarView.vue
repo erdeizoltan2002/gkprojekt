@@ -1,6 +1,8 @@
 <script setup>
+    import axios from 'axios';
     import { ref,onMounted,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import Swal from 'sweetalert2'
     
 
     const kosar = ref([])
@@ -8,7 +10,11 @@
     const Route = useRoute()
     const Router = useRouter()
 
-
+const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    Router.push('/login')
+}
 
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
@@ -24,6 +30,12 @@ const termek = async(id) =>{
     })
 }
 
+const megrendeles = async () => {
+    await axios.post('/vasarlas', {
+        kosar: JSON.parse(localStorage.getItem("kosar"))
+    })
+} 
+
 watch(kosar, (torolKosar) =>{
         localStorage.setItem("kosar",JSON.stringify(torolKosar))
     },{
@@ -38,7 +50,10 @@ watch(kosar, (torolKosar) =>{
             }else if( i == id && kosar.value[i].mennyiseg >= 2){
                 kosar.value[i].mennyiseg -= 1;
             }
-        }
+        }Swal.fire(
+                'Termék törölve a kosaradból',
+                'success'
+                )
     }
     const uresE = async(kosar)=>{
         if(kosar.value.length == 0 || kosar.value[i] == null){
@@ -51,6 +66,11 @@ watch(kosar, (torolKosar) =>{
 
 <template>
     <div id="shoppingcart">
+        <div id="logout">
+            <form action="" @submit.prevent="logout" id="logout">
+                <button type="submit" id="ki">Kijelentkezés</button>
+            </form>
+        </div>
         <h1>Kosarad</h1>
         <div v-if="kosar.value == null">
                 <p aria-errormessage="Kosarad üres"></p>
@@ -62,8 +82,8 @@ watch(kosar, (torolKosar) =>{
                         <img src="/gorsskid.jpg" alt="" id="termkep" >
                     </div>
                     <div id="adatok">
-                        <div id="megnev">Termék megnevezés:{{ items?.megnevezes }}</div>
-                        <div id="menny">Darabszám: {{ items?.mennyiseg }}</div>
+                        <div id="megnev" >Termék megnevezés: {{ items?.megnevezes }}</div>
+                        <div id="menny" >Darabszám: {{ items?.mennyiseg }}</div>
                         <div id="meret">Mérete: {{ items?.meret }}</div>
                         <div id="ar">Ára: {{ items?.osszeg }}ft (termékenként)</div>
                         <div id="torol">
@@ -80,7 +100,7 @@ watch(kosar, (torolKosar) =>{
                         <option value="atvetel">Fizetés átvételkor</option>
                     </select>
                     <div>
-                        <button type="submit">Megrendelés</button>
+                        <button @click="megrendeles()" type="submit">Megrendelés</button>
                     </div>
                 </div>
         </div>
@@ -148,5 +168,8 @@ watch(kosar, (torolKosar) =>{
         padding: 2%;
         display: inline-block;
     }
-    
+    #logout{
+        float: right;
+        font-weight: bold;
+    }
 </style>

@@ -10,6 +10,7 @@ const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const pdfDocument = require('pdfkit');
 const fs = require('fs');
+const { text } = require('pdfkit');
 const router = express.Router();
 
 
@@ -36,8 +37,8 @@ const task = cron.schedule('1 * * * *', () => {
         })
     } catch (error) {
         console.log(error)
-        console.log("A tokened lejárt, jelentkezz be újra")
         task.end()
+        console.log('Megállítva')
     }
 });
 task.start();
@@ -119,6 +120,31 @@ app.get('/termekek/:termekek',async(req,res) => {
     }
 })
 
+app.post('/termekek/:termekek',async(req,res)=>{
+    const termekek = req.params.termekek
+    const {
+        kep,
+        megnevezes,
+        meret,
+        osszeg
+    } = req.body
+
+    if(!kep || !megnevezes || !meret || !osszeg){
+        res.status(401).json({
+            error: 'Hibás adatok'
+        });
+    }
+    try {
+        await query('INSERT INTO '+ termekek +' (`kep`, `megnevezes`, `meret`, `osszeg`) VALUES (?,?,?,?)', [kep,megnevezes,meret,osszeg])
+        res.status(201).json({
+            status: 'sikeres feltöltés'
+        })
+    } catch (error) {
+        res.status(401).json({
+            error: error
+        });
+    }
+})
 
     //termék elérési út id alapján
 app.get('/termekek/:termekek/:id',async(req,res) => {
@@ -204,9 +230,12 @@ app.post('/vasarlas',auth,async(req,res) =>{
     const token = req.headers.authorization;
     const decode = jwt.verify(token,process.env.secret);
     const email = decode.email;
+    const {kosar} = req.body
     const pfdId = Math.floor((1 + Math.random()) * 0x100000000)
     .toString(16)
     .substring(1);
+
+
 
    //email-pdf rész
     var mailOptions = {
@@ -221,6 +250,8 @@ app.post('/vasarlas',auth,async(req,res) =>{
     }],
     }
 
+
+
     // pdf létrehozása
     doc.pipe(fs.createWriteStream(`./temp/pdf/${pfdId}.pdf`))
 
@@ -228,12 +259,21 @@ app.post('/vasarlas',auth,async(req,res) =>{
     doc.fontSize(25)
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
-    doc.scale(0.6)
-    .text(to,osszeg)
-    .translate(470, -380)
-    .path('M 250,75 L 323,301 131,161 369,161 177,301 z')
-    .fill('red', 'even-odd')
-    .restore();
+    
+
+    for (let i = 0; i < kosar.length; i++) {
+        doc.scale(0.6)
+
+        .text('Termék megnevezése:',220+i,520+i,120+i)
+        .text(kosar[i].megnevezes)
+        .text('Termék mennyisége:')
+        .text(kosar[i].mennyiseg)
+        .text('Összege:')
+        .text(kosar[i].osszeg * kosar[i].mennyiseg +'Ft')
+        .restore();
+    }
+
+
     doc.end();
 
     //email küldés pdf-el, pdf törlés
