@@ -3,7 +3,6 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-<<<<<<< HEAD
   <!-- <div id="mainNav">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
@@ -22,10 +21,6 @@ import { RouterLink, RouterView } from 'vue-router'
       </RouterLink>
   </div> -->
   <div>
-=======
-  <div>
-    
->>>>>>> parent of 9061f74 (Merge branch 'Barna')
     <RouterView />
   </div>
     
