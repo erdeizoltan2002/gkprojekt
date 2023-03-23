@@ -102,4 +102,10 @@ const feltolt = async() =>{
     #upload{
         float: right;
     }
+    h5,h4{
+        color:#f7ece1;
+    }
+    body{
+        background-color: #0f1020;
+    }
 </style>
