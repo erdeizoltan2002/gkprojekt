@@ -39,14 +39,16 @@
         {{ outPut }}
         <br>
     </div>
-    <form @submit.prevent="register">
-        <input type="text" v-model="felhasznalonev" placeholder="Felhasználó név:"><br>
-        <input type="text" v-model="emailcim" placeholder="Email Cím:"><br>
-        <input type="password" v-model="jelszo" placeholder="Jelszó:"><br>
-        <input type="password" v-model="jelszo2" placeholder="Jelszó:"><br>
-        <button type="submit">Bejelentkezés</button>
-    </form>
-
-    
+    <div class="row">
+        <div class="col">
+        <form @submit.prevent="register">
+            <input type="text" v-model="felhasznalonev" placeholder="Felhasználó név:"><br>
+            <input type="text" v-model="emailcim" placeholder="Email Cím:"><br>
+            <input type="password" v-model="jelszo" placeholder="Jelszó:"><br>
+            <input type="password" v-model="jelszo2" placeholder="Jelszó:"><br>
+            <button type="submit">Bejelentkezés</button>
+        </form>
+        </div>
+    </div>
     </div>
 </template>

@@ -23,15 +23,25 @@
         router.push(`./${route.params.id}/${id}`)
     }
 
+    const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    router.push('/login')
+  }
+
 
 </script>
 
 
 
 <template>
+<div>
     <div>
-       
+        <form action="" @submit.prevent="logout" id="logout">
+            <button type="submit" id="ki">Kijelentkezés</button>
+        </form>
     </div>
+<div id="visual">
     <div v-if="loading== true">
         <!-- termékek kiiratása -->
         <div class="row">
@@ -40,6 +50,7 @@
                     <img src="/gorsskid.jpg" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ termek.megnevezes }}</h5>
+                        <p class="card-text">Méret: {{ termek.meret }}</p>
                         <p class="card-text">Some quick example text to build on the card
                             title and make up the bulk of the card's content.</p>
                         <button type="submit" class="btn btn-primary" @click="termekMegtekint(termek.id)">Termék megtekintése</button>
@@ -48,16 +59,21 @@
             </div>
         </div>
     </div>
-
    <div v-else>
         Loading
         {{ loading }}
     </div>
-
+</div>
+</div>
 </template>
 <style scope>
+    #logout{
+        padding-right: 2%;
+    }
     .row{
         padding: 25px;
     }
-    
+    #visual{
+        padding-top: 2%;
+    }
 </style>

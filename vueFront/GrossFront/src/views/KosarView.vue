@@ -1,6 +1,8 @@
 <script setup>
-    import { ref,onMounted } from 'vue';
+    import axios from 'axios';
+    import { ref,onMounted,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import Swal from 'sweetalert2'
     
 
     const kosar = ref([])
@@ -8,16 +10,18 @@
     const Route = useRoute()
     const Router = useRouter()
 
-    const person = {
-    name: "asd",
-    location: "asda",
+const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    Router.push('/login')
 }
 
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
-    })
+    }
+    )
 
-const termekMod = async(id) =>{
+const termek = async(id) =>{
     kosar.value.push({
         id:id.id,
         megnevezes : id.megnevezes,
@@ -26,30 +30,90 @@ const termekMod = async(id) =>{
     })
 }
 
+const megrendeles = async () => {
+    await axios.post('/vasarlas', {
+        kosar: JSON.parse(localStorage.getItem("kosar"))
+    })
+} 
+
+watch(kosar, (torolKosar) =>{
+        localStorage.setItem("kosar",JSON.stringify(torolKosar))
+    },{
+        deep:true
+    })
+
+    const torol = async(id) =>{
+        console.log(id)
+        for (let i = 0; i < kosar.value.length; i++) {
+            if(i == id && kosar.value[i].mennyiseg < 2){
+                kosar.value.splice(i,1);
+            }else if( i == id && kosar.value[i].mennyiseg >= 2){
+                kosar.value[i].mennyiseg -= 1;
+            }
+        }Swal.fire(
+                'Termék törölve a kosaradból',
+                'success'
+                )
+    }
+    const uresE = async(kosar)=>{
+        if(kosar.value.length == 0 || kosar.value[i] == null){
+            uresE == true;
+        }
+    }
     
-   
+
 </script>
 
 <template>
     <div id="shoppingcart">
+        <div id="logout">
+            <form action="" @submit.prevent="logout" id="logout">
+                <button type="submit" id="ki">Kijelentkezés</button>
+            </form>
+        </div>
         <h1>Kosarad</h1>
-        {{ kosar }}
-        <div v-for="termekMod in termekModok">
-             <p>{{ megnevezes }}</p>
+        <div v-if="kosar.value == null">
+                <p aria-errormessage="Kosarad üres"></p>
+            </div>
+        <div id="osszesit">
+            <div v-for="(items,id) in kosar">
+                <div id="megjelenit">
+                    <div id="kep">
+                        <img src="/gorsskid.jpg" alt="" id="termkep" >
+                    </div>
+                    <div id="adatok">
+                        <div id="megnev" >Termék megnevezés: {{ items?.megnevezes }}</div>
+                        <div id="menny" >Darabszám: {{ items?.mennyiseg }}</div>
+                        <div id="meret">Mérete: {{ items?.meret }}</div>
+                        <div id="ar">Ára: {{ items?.osszeg }}ft (termékenként)</div>
+                        <div id="torol">
+                            <button type="submit" @click="torol(id)">Törlés</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="bottom"></div>
+                <div id="end">
+                    <select name="fizOp" id="">
+                        <option value="" hidden>Fizetési opciók</option>
+                        <option value="utalas">Fizetési banki utalással</option>
+                        <option value="atvetel">Fizetés átvételkor</option>
+                    </select>
+                    <div>
+                        <button @click="megrendeles()" type="submit">Megrendelés</button>
+                    </div>
+                </div>
         </div>
     </div>
 </template>
 
 <style>
     #shoppingcart{
-        margin-top: 60px;
-        margin-left: 20px;
-        border-style: solid;
-        border-width: 2px;
-        padding: auto;
-        text-align: center;
-        width: 180px;
-        height: 100px;
+        padding: 2%;
+    }
+    #osszesit{
+        border-width: 1px;
+        border-top: solid;
     }
     #data{
         border-style: solid;
@@ -57,5 +121,55 @@ const termekMod = async(id) =>{
         border-width: 1px;
         width: 160px;
         margin:auto;
+    }
+    
+    #termkep{
+        width: 140px;
+        height: 160px;
+        margin-bottom: 8px;
+    }
+    #megjelenit{
+        border-style: solid;
+        border-color: blanchedalmond;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding: 1%;
+    }
+    #bottom{
+        border-width: 1px;
+        border-top: solid;
+    }
+    #end{
+        float:right;
+        
+        padding-top: 1%;
+    }
+    #kep{
+        display: inline-block;
+    }
+    #adatok{
+        padding: 2%;
+        display: inline-block;
+       
+    }
+    #meret{
+        padding: 2%;
+        display: inline-block;
+    }
+    #menny{
+        padding: 2%;
+        display: inline-block;
+    }
+    #megnev{
+        padding: 2%;
+        display: inline-block;
+    }
+    #ar{
+        padding: 2%;
+        display: inline-block;
+    }
+    #logout{
+        float: right;
+        font-weight: bold;
     }
 </style>

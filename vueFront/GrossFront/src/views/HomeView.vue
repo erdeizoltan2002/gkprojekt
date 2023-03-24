@@ -17,13 +17,6 @@ const logout = async () => {
 </script>
 
 <template>
-  <br>
-  <form action="" @submit.prevent="logout" id="logout">
-    <button type="submit" id="ki">Kijelentkezés</button>
-  </form>
-  <div style="width: 100%;">
-    <img id="logo" src="../../kepek/grosskidz_logo.jpg" alt="">
-  </div>
   <div>
     <form action="" @submit.prevent="logout" id="logout">
       <button type="submit" id="ki">Kijelentkezés</button>

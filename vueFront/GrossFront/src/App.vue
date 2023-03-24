@@ -1,9 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import axios from 'axios';
+import { RouterLink, RouterView,useRouter } from 'vue-router'
+
+
+const router =  useRouter();
+
+if (!localStorage.getItem('token')) {
+  router.push('/login')
+}
 </script>
 
 <template>
-  <!-- <div id="mainNav">
+<div>
+  <div class="row">
+  <div id="mainNav">
+    <div class="col">
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
@@ -19,10 +30,13 @@ import { RouterLink, RouterView } from 'vue-router'
       <RouterLink to="/kosar" class="r-link">
         Kosarad
       </RouterLink>
-  </div> -->
-  <div>
-    <RouterView />
+    </div>
   </div>
+</div>
+<div>
+  <RouterView />
+</div>
+</div>
     
 </template>
 
@@ -50,7 +64,7 @@ import { RouterLink, RouterView } from 'vue-router'
     height: 25%;
     display: block;
   }
-  #navi{
+  #mainNav{
     display: block;
     text-align: center;
     margin-top: 20px;
@@ -59,4 +73,5 @@ import { RouterLink, RouterView } from 'vue-router'
     display: inline-block;
   }
 </style>
+
 
