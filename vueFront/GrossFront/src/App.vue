@@ -11,31 +11,10 @@ if (!localStorage.getItem('token')) {
 </script>
 
 <template>
+  <img src="../../kepek/gk_logo.jpg" id="logo" alt="">
 <div>
-  <div class="row">
-  <div id="mainNav">
-    <div class="col">
-    <RouterLink to="/termekek/polok" class="r-link">
-        Gross pólók
-      </RouterLink>
 
-      <RouterLink to="/termekek/puloverek" class="r-link">
-        Gross Puloverek
-      </RouterLink>
-
-      <RouterLink to="/termekek/nadragok" class="r-link">
-            Gross Nadrágok
-        </RouterLink>
-
-      <RouterLink to="/kosar" class="r-link">
-        Kosarad
-      </RouterLink>
-    </div>
-  </div>
-</div>
-<div>
   <RouterView />
-</div>
 </div>
     
 </template>

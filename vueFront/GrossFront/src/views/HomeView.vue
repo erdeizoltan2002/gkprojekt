@@ -21,7 +21,6 @@ const logout = async () => {
     <form action="" @submit.prevent="logout" id="logout">
       <button type="submit" id="ki">Kijelentkezés</button>
     </form>
-    <img src="../../kepek/gk_logo.jpg" id="logo" alt="">
   </div>
 
   <div>
@@ -136,11 +135,6 @@ const logout = async () => {
   margin-top: 20px;
 }
 
-#logout {
-  display: block;
-  align-self: center;
-  font-weight: bold;
-}
 
 #ki {
   float: right;
