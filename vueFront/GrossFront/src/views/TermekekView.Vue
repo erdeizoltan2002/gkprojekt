@@ -2,6 +2,7 @@
     import axios from 'axios'
     import { onMounted,ref } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import { routerKey, RouterLink, RouterView } from 'vue-router'
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -22,26 +23,57 @@
         router.push(`./${route.params.id}/${id}`)
     }
 
+    const logout = async() =>{
+    await axios.post('/logout')
+    localStorage.clear('token')
+    router.push('/login')
+  }
+
 
 </script>
 
 
+
 <template>
-    <!-- termékek kiiratása -->
-    <div v-if="loading == true">
-        <h1>{{ $route.params.id }}</h1>
-        {{ termekek }}
-        <div v-for="termek in termekek" :key="termekek.id">
-            <h2>{{ termek.megnevezes }}</h2>
-            <p>termékkép</p>
-            <p>Ára: {{ termek.osszeg }}</p>
-            <p>Méret: {{ termek.meret }}</p>
-            <button type="submit" @click="termekMegtekint(termek.id)">Termék megtekintése</button>
+<div>
+    <div>
+        <form action="" @submit.prevent="logout" id="logout">
+            <button type="submit" id="ki">Kijelentkezés</button>
+        </form>
+    </div>
+<div id="visual">
+    <div v-if="loading== true">
+        <!-- termékek kiiratása -->
+        <div class="row">
+            <div class="col-3 "  v-for="termek in termekek" :key="termekek.id">
+                <div class="card"  style="width: 18rem;">
+                    <img src="/gorsskid.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ termek.megnevezes }}</h5>
+                        <p class="card-text">Méret: {{ termek.meret }}</p>
+                        <p class="card-text">Some quick example text to build on the card
+                            title and make up the bulk of the card's content.</p>
+                        <button type="submit" class="btn btn-primary" @click="termekMegtekint(termek.id)">Termék megtekintése</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div v-else>
+   <div v-else>
         Loading
         {{ loading }}
     </div>
+</div>
+</div>
 </template>
-
+<style scope>
+    #logout{
+        padding-right: 2%;
+    }
+    .row{
+        padding: 25px;
+    }
+    #visual{
+        padding-top: 2%;
+    }
+</style>

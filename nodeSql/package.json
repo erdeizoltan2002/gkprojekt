@@ -1,7 +1,6 @@
 {
   "name": "sqlnode",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,5 +23,7 @@
     "nodemon": "^2.0.20",
     "pdfkit": "^0.13.0",
     "util": "^0.12.5"
-  }
+  },
+  "keywords": [],
+  "description": ""
 }
