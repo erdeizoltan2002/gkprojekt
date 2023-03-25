@@ -1,7 +1,8 @@
-<script setup>
+<script setup >
     import axios from 'axios'
     import { onMounted,ref,watch } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
+    import Swal from 'sweetalert2'
 
     const termekek = ref([]);
     const loading = ref(false)
@@ -62,45 +63,37 @@ const logout = async() =>{
 
 <template>
 <div>
-    <div id="logout">
-        <form action="" @submit.prevent="logout" id="logout">
-            <button type="submit" id="ki">Kijelentkezés</button>
-        </form>
-    </div>
-    <div id="navigation">
-        <RouterLink to="/kosar" class="r-link">
-            Ugráss a kosaradhoz
-        </RouterLink>
-        
-    </div>
     <div v-if="loading == true">
-        <div id="termek">
         <div class="row">
-        <h1>{{ $route.params.id }}</h1>
-        <div v-if="kosar.length == 0" id="state"> 
-            Kosarad üres
+        <div class="col">
+            <div id="logout">
+                <form action="" @submit.prevent="logout" id="logout">
+                    <button type="submit" id="ki">Kijelentkezés</button>
+                </form>
+            </div>
         </div>
-        <div v-else-if="kosar.length > 0">
-            Kosaradba helyezve
-        </div>
-
-            <div v-for="termek in termekek" :key="termekek.id">
-                <div class="card" style="width: 18rem; border-width: 2.7px; border-color: lightgrey;">
-                    <img src="/gorsskid.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                        <h2>{{ termek.megnevezes }}</h2>
-                        <p>Ára: {{ termek.osszeg }}</p>
-                        <p>Méret: {{ termek.meret }}</p>
-                        <p>Egyéb információk helye a látható termékkel kapcsolatban</p>
+        <div id="termek">
+            <div class="col">
+            <h1>{{ $route.params.id }}</h1>
+                    <div v-for="termek in termekek" :key="termekek.id">
+                        <div class="card" style="width: 18rem; border-width: 2.7px; border-color: lightgrey;">
+                            <img src="/gorsskid.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                <h2>{{ termek.megnevezes }}</h2>
+                                <p>Ára: {{ termek.osszeg }}</p>
+                                <p>Méret: {{ termek.meret }}</p>
+                                <p>Egyéb információk helye a látható termékkel kapcsolatban</p>
+                                </div>
+                            <button type="submit" class="btn btn-primary" @click="kosarbaHelyez(termek)">Termék kosárba helyezése</button>
                         </div>
-                    <button type="submit" class="btn btn-primary" @click="kosarbaHelyez(termek)">Termék kosárba helyezése</button>
+                    </div>
+                </div>
+                <div class="col">                  
                 </div>
             </div>
         </div>
         </div>
-        </div>
-            <div v-else>
-                Loading
+            <div v-else id="loading">
                 {{ loading }}
             </div>
 </div>
@@ -116,7 +109,8 @@ const logout = async() =>{
        padding-right: 2%;
     }
     #logout{
-        float: left;
+        float: right;
+        /* padding: 2%; */
     }
 
 </style>

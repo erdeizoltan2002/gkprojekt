@@ -260,10 +260,10 @@ app.post('/vasarlas',auth,async(req,res) =>{
     .text('GrossKidz számlája!', 120, 120)
     .underline(120, 120, 360, 27, { color: '#000000' })
     
-
+    doc
+    .scale(0.7)
     for (let i = 0; i < kosar.length; i++) {
-        doc.scale(0.6)
-
+        doc.scale(0.7)
         .text('Termék megnevezése:',220+i,520+i,120+i)
         .text(kosar[i].megnevezes)
         .text('Termék mennyisége:')
@@ -272,7 +272,6 @@ app.post('/vasarlas',auth,async(req,res) =>{
         .text(kosar[i].osszeg * kosar[i].mennyiseg +'Ft')
         .restore();
     }
-
 
     doc.end();
 

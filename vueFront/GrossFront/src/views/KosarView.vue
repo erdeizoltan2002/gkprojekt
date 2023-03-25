@@ -1,6 +1,6 @@
 <script setup>
     import axios from 'axios';
-    import { ref,onMounted,watch } from 'vue';
+    import { ref,onMounted,watch,reactive } from 'vue';
     import { useRoute,useRouter } from 'vue-router';
     import Swal from 'sweetalert2'
     
@@ -16,6 +16,7 @@ const logout = async() =>{
     Router.push('/login')
 }
 
+
 onMounted(async ()=>{
         kosar.value = JSON.parse(localStorage.getItem("kosar")) || [] //a kosár lekérése
     }
@@ -26,14 +27,20 @@ const termek = async(id) =>{
         id:id.id,
         megnevezes : id.megnevezes,
         meret: id.meret,
-        osszeg: id.osszeg
+        osszeg: id.osszeg,
+        fizetesiOpcio: fizOp
     })
 }
 
 const megrendeles = async () => {
     await axios.post('/vasarlas', {
         kosar: JSON.parse(localStorage.getItem("kosar"))
-    })
+    },
+    Swal.fire(
+            'Sikeres Rendelés!',
+            'Számládat emailben továbbítjuk számodra',
+            'success'
+            ))
 } 
 
 watch(kosar, (torolKosar) =>{
@@ -51,7 +58,8 @@ watch(kosar, (torolKosar) =>{
                 kosar.value[i].mennyiseg -= 1;
             }
         }Swal.fire(
-                'Termék törölve a kosaradból',
+                'Siker!',
+                'Termék törölve a kosaradból!',
                 'success'
                 )
     }
@@ -94,11 +102,11 @@ watch(kosar, (torolKosar) =>{
             </div>
             <div id="bottom"></div>
                 <div id="end">
-                    <select name="fizOp" id="">
+                    <!-- <select name="fizOp" v-model="data.fizOp">
                         <option value="" hidden>Fizetési opciók</option>
                         <option value="utalas">Fizetési banki utalással</option>
                         <option value="atvetel">Fizetés átvételkor</option>
-                    </select>
+                    </select> -->
                     <div>
                         <button @click="megrendeles()" type="submit">Megrendelés</button>
                     </div>

@@ -1,4 +1,4 @@
-<script setup >
+<script setup>
     import {onMounted,ref} from 'vue'
     import axios from 'axios'
     import {useRouter} from 'vue-router'
@@ -8,10 +8,9 @@
     const felhnev = ref('');
     const jelszo = ref('');
     const router = useRouter();
-
     const adminNev = ref('admin');
     const adminJel = ref('admin');
-    const tokenE = ref('')
+    const tokenE = ref('');
 
     const login = async()=>{
         await axios.post('/login',{
@@ -34,6 +33,12 @@
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)
                 router.push('/admin')
+                const loginCheck='siker'
+                Swal.fire(
+                'Üdv '+felhnev.value+' !',
+                'Sikeres bejelentkezés',
+                'success'
+                )
                 console.log('admin vagy, hajrá')
                 }
             }

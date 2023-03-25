@@ -17,6 +17,9 @@ const logout = async() =>{
     await axios.post('/logout')
     localStorage.clear('token')
     Router.push('/login')
+    Swal.fire({
+    icon: 'succes'
+  })
 }
 </script>
 
