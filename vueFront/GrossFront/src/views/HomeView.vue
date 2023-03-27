@@ -17,36 +17,13 @@ const logout = async () => {
 </script>
 
 <template>
-  <div>
-    <form action="" @submit.prevent="logout" id="logout">
-      <button type="submit" id="ki">Kijelentkezés</button>
-    </form>
+  <br>
+  <form action="" @submit.prevent="logout" id="logout">
+    <button type="submit" id="ki">Kijelentkezés</button>
+  </form>
+  <div style="width: 100%;">
+    <img id="logo" src="../../kepek/grosskidz_logo.jpg" alt="">
   </div>
-
-  <div>
-    <navbar id="navi">
-      <RouterLink to="/termekek/polok" class="r-link">
-        Gross pólók
-      </RouterLink>
-      &nbsp;&nbsp;
-      <RouterLink to="/termekek/puloverek" class="r-link">
-        Gross Pulóverek
-      </RouterLink>
-      &nbsp;&nbsp;
-      <RouterLink to="/termekek/nadragok" class="r-link">
-        Gross Nadrágok
-      </RouterLink>
-      &nbsp;&nbsp;
-      <RouterLink to="/kosar" class="r-link-kosar">
-        Kosarad
-      </RouterLink>
-      <br>
-    </navbar>
-
-
-  </div>
-
-
   <br>
   <div class="Head">
     <h3>Termék infók</h3>
@@ -135,6 +112,11 @@ const logout = async () => {
   margin-top: 20px;
 }
 
+#logout {
+  display: block;
+  align-self: center;
+  font-weight: bold;
+}
 
 #ki {
   float: right;
