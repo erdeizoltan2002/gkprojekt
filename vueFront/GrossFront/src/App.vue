@@ -58,7 +58,7 @@ const logout = async() =>{
 
 <style>
   .r-link{
-    color: black;
+    background-color: black;
     text-decoration: none;
     font-size: large;
   }
