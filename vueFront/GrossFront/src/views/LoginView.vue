@@ -33,7 +33,6 @@
                 localStorage.setItem('token',JSON.stringify(response.data.token))
                 console.log(response.data.token)
                 router.push('/admin')
-                const loginCheck='siker'
                 Swal.fire(
                 'Üdv '+felhnev.value+' !',
                 'Sikeres bejelentkezés',

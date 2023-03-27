@@ -28,6 +28,9 @@ const logout = async() =>{
   <div class="row">
   <div id="mainNav">
     <div class="col">
+    <RouterLink to="/" class="r-link">
+      Főoldal
+    </RouterLink>
     <RouterLink to="/termekek/polok" class="r-link">
         Gross pólók
       </RouterLink>
