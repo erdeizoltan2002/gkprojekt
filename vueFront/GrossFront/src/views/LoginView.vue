@@ -54,12 +54,15 @@
 <template>
 <br>
 <div id="login">
+    <h4>Belépés</h4>
+    <br>
     <form @submit.prevent="login">
         <input type="text" v-model="felhnev" placeholder="Felhasználó név:"><br><br>
         <input type="password" v-model="jelszo" placeholder="Jelszó:"><br><br>
         <button type="submit">Bejelentkezés</button><br>
     </form>
-    <RouterLink to="/register" class="r-link">
+    <br>    
+    <RouterLink to="/register" class="r-link" id="regL">
      Vagy regisztrálj...
     </RouterLink>
 </div>
@@ -69,4 +72,11 @@
      text-align: center;
      padding-top: 5%;
     }
+    /* #regL{
+        border-style: solid;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        padding-left:4px ;
+        padding-right: 4px;
+    } */
 </style>
